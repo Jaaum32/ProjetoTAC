@@ -1,0 +1,44 @@
+@URL = http://localhost:8081/animal
+
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBUEkgYXV0aGVudGljYXRpb24iLCJpZCI6IjY0MTc1MjVlLThjMzAtNDcxYS05NGRlLTdhNDBlNjI5MTFmZiIsInVzZXJuYW1lIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNzMyMjA2NTY2LCJleHAiOjE3MzIyMTAxNjYsImlzcyI6IlVURlBSIn0.9XAaJNVwoFb7cKnTGG-_Ouxl3Dx0Fmita3xZeh4RFH4
+
+### Obter todas pessoas
+GET {{URL}}
+Authorization: {{token}}
+
+### Obter uma pessoa pelo ID
+GET {{URL}}/2
+Authorization: {{token}}
+
+### Criar uma pessoa
+POST {{URL}}
+Content-Type: application/json
+
+{
+  "tagId": "TAG12345",
+  "name": "Boizinho",
+  "breed": "Nelore",
+  "age": 3,
+  "weight": 450.0,
+  "reproductiveStatus": "Macho"
+}
+
+
+### Atualizar uma pessoa
+PUT {{URL}}/1
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "tagId": "TAG12345",
+  "name": "Vaquinha",
+  "breed": "Nelore",
+  "age": 4,
+  "weight": 470.0,
+  "reproductiveStatus": "Fêmea - Prenha",
+}
+
+
+### Deletar uma pessoa
+DELETE {{URL}}/2
+Authorization: {{token}}

@@ -1,0 +1,41 @@
+@URL = http://localhost:8081/healthrecord
+
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBUEkgYXV0aGVudGljYXRpb24iLCJpZCI6IjY0MTc1MjVlLThjMzAtNDcxYS05NGRlLTdhNDBlNjI5MTFmZiIsInVzZXJuYW1lIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNzMyMjA2NTY2LCJleHAiOjE3MzIyMTAxNjYsImlzcyI6IlVURlBSIn0.9XAaJNVwoFb7cKnTGG-_Ouxl3Dx0Fmita3xZeh4RFH4
+
+
+### Obter todas pessoas
+GET {{URL}}
+Authorization: {{token}}
+
+### Obter uma pessoa pelo ID
+GET {{URL}}/54216a5f-fc52-4c4c-9df1-34070c01045c
+Authorization: {{token}}
+
+### Criar uma pessoa
+POST {{URL}}
+Content-Type: application/json
+
+{
+    "animalId": 1,
+    "date": "2024-11-21",
+    "treatment": "Vacina",
+    "responsible": "Jorgin Vet"
+}
+
+### Atualizar uma pessoa
+PUT {{URL}}/f100538c-390a-49d2-8b08-e127d1b390c1
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "name": "Marcelo",
+    "email": "mar@gmail.com",
+    "username": "mar",
+    "password": "1234",
+    "birth": "2000-05-06"
+}
+
+
+### Deletar uma pessoa
+DELETE {{URL}}/85bd872e-9017-4c5e-a218-446352253490
+Authorization: {{token}}

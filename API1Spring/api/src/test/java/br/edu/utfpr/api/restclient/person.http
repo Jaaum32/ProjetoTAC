@@ -1,0 +1,41 @@
+@URL = http://localhost:8081/person
+
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBUEkgYXV0aGVudGljYXRpb24iLCJpZCI6IjA0NWI4Mzg2LTg5MjQtNGM2Ny04OTg5LTZmNmM4MTFkNmM1ZCIsInVzZXJuYW1lIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNzMyMjEzMzc5LCJleHAiOjE3MzIyMTY5NzksImlzcyI6IlVURlBSIn0.ElrplTtQDaD_XboW-uPlvyD2PqCy1dhQa5ViUifbRKA
+
+
+### Obter todas pessoas
+GET {{URL}}
+Authorization: {{token}}
+
+### Obter uma pessoa pelo ID
+GET {{URL}}/c23d9152-1f00-4b6c-8eca-8bfeb5ffe5e3
+Authorization: {{token}}
+
+### Criar uma pessoa
+POST {{URL}}
+Content-Type: application/json
+
+{
+    "name": "Juca",
+    "email": "juca@gmail.com",
+    "password": "1234",
+    "birth": "2000-05-05"
+}
+
+### Atualizar uma pessoa
+PUT {{URL}}/18d93abd-0157-4318-9bf6-4aec9b00f6e1
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "name": "Marcelo",
+    "email": "mar@gmail.com",
+    "username": "mar",
+    "password": "1234",
+    "birth": "2000-05-06"
+}
+
+
+### Deletar uma pessoa
+DELETE {{URL}}/85bd872e-9017-4c5e-a218-446352253490
+Authorization: {{token}}
