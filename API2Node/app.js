@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+//var logger = require('morgan');
 const mongoose = require("mongoose");
 
 require("dotenv").config();
@@ -26,16 +26,22 @@ var geofenceRouter = require('./routes/Geofence')
 
 var app = express();
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', logger, indexRouter);
-app.use('/auth', logger, require('./routes/auth'))
-app.use('/users', logger, usersRouter);
-app.use('/cowlocation', logger, cowLocationRouter);
-app.use('/geofence', logger, geofenceRouter);
+// app.use('/', logger, indexRouter);
+// app.use('/auth', logger, require('./routes/auth'))
+// app.use('/users', logger, usersRouter);
+// app.use('/cowlocation', logger, cowLocationRouter);
+// app.use('/geofence', logger, geofenceRouter);
+
+app.use('/', indexRouter);
+app.use('/auth', require('./routes/auth'))
+app.use('/users', usersRouter);
+app.use('/cowlocation', cowLocationRouter);
+app.use('/geofence', geofenceRouter);
 
 module.exports = app;
