@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HealthRecord from './Pages/HealthRecord';
+import Geofencing from './Pages/Geofencing';
+import Animal from './Pages/Animal';
+import Reproduction from './Pages/Reproduction';
+import Sidebar from './Components/Sidebar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Sidebar>
+        <Routes>
+          <Route path="/" element={<Geofencing />} />
+          <Route path="/geofencing" element={<Geofencing />} />
+          <Route path="/animal" element={<Animal />} />
+          <Route path="/healthrecord" element={<HealthRecord />} />
+          <Route path="/reproduction" element={<Reproduction />} />
+        </Routes>
+      </Sidebar>
+    </BrowserRouter>
   );
 }
 
