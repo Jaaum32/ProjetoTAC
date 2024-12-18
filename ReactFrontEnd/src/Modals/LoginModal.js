@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
-import { FaRegTrashAlt } from 'react-icons/fa'
+import React, { useState, useEffect } from 'react';
+import { FaRegTrashAlt } from 'react-icons/fa';
 import LoginService from '../Services/LoginService'; // Importando o serviço de login
 
 function LoginModal({ show, onClose, onLoginSuccess }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [erro, setErro] = useState('');
+
+  // Função para verificar se o token é válido
+  const isValidToken = (token) => {
+    return token && token !== ''; // Verifica se o token não é nulo ou vazio
+  };
+
+  // Verifica o token no localStorage assim que o modal é aberto
+  useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
+    if (isValidToken(token)) {
+      onClose(); // Fecha o modal se o token for válido
+    }
+  }, [show, onClose]); // O useEffect depende do show para rodar quando o modal for exibido
 
   // Função para enviar o login
   const handleLogin = async (e) => {

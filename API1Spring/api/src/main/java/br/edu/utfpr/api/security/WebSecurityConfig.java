@@ -80,18 +80,33 @@ public class WebSecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    // Used by Spring Security if CORS is enabled.
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.addAllowedOriginPattern("*"); // Permitir qualquer origem
+        configuration.setAllowedMethods(Arrays.asList("*")); // Métodos permitidos
+        configuration.setAllowedHeaders(Arrays.asList("*")); // Permitir qualquer cabeçalho
+        configuration.setExposedHeaders(Arrays.asList("*")); // Expor cabeçalhos, se necessário
+        configuration.setAllowCredentials(true); // Permitir credenciais (opcional, dependendo do caso)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+    // Used by Spring Security if CORS is enabled.
+    // @Bean
+    // CorsConfigurationSource corsConfigurationSource() {
+    //     CorsConfiguration configuration = new CorsConfiguration();
+    //     configuration.setAllowedOrigins(Arrays.asList("*"));
+    //     configuration.setAllowedMethods(Arrays.asList("*"));
+    //     configuration.setAllowedHeaders(Arrays.asList("*"));
+    //     // configuration.setAllowCredentials(true);
+
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     source.registerCorsConfiguration("/**", configuration);
+    //     return source;
+    // }
 
     // @Bean // Ignora URL's específicas
     // public WebSecurityCustomizer webSecurityCustomizer() throws Exception {

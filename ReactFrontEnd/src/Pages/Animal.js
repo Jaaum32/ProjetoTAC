@@ -119,7 +119,7 @@ function Animal() {
     return (
         <div className="animal">
             <div>
-                <h1>Animals Data</h1>
+                <h2>Registros de Animais</h2>
                 <DataTable
                     columns={columns}
                     data={filteredAnimals}
