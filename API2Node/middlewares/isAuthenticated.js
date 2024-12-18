@@ -2,7 +2,7 @@
 
  const isAuthenticated = (req,res,next) => {
      const { authorization } = req.headers;
-     console.log(authorization)
+     //console.log(authorization)
 
      if(!authorization) {
          return res.status(401).json({message: "Sem token"});
@@ -15,5 +15,5 @@
          return next();
      });
  }
- 
+
  module.exports = isAuthenticated;

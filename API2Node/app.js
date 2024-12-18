@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 //var logger = require('morgan');
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -25,6 +26,17 @@ var cowLocationRouter = require('./routes/CowLocation');
 var geofenceRouter = require('./routes/Geofence')
 
 var app = express();
+
+// Configurações de CORS
+const corsOptions = {
+    origin: '*', // Permite todas as origens (não recomendado em produção)
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+    exposedHeaders: ['Authorization'], // Cabeçalhos que podem ser expostos
+  };
+  
+  // Ativando o middleware CORS
+  app.use(cors(corsOptions));
 
 //app.use(logger('dev'));
 app.use(express.json());
