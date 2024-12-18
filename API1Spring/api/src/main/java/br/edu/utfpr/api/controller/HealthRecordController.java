@@ -1,11 +1,13 @@
 package br.edu.utfpr.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+// import org.springframework.data.domain.Page;
+// import org.springframework.data.domain.Pageable;
+// import org.springframework.data.domain.Sort;
+// import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,10 +58,15 @@ public class HealthRecordController {
                 : ResponseEntity.notFound().build();
     }
 
+    // @GetMapping
+    // public ResponseEntity<Page<HealthRecord>> getAll(
+    //         @PageableDefault(page = 0, size = 5, sort = "date", direction = Sort.Direction.ASC) Pageable pageable) {
+    //     return ResponseEntity.status(206).body(healthRecordRepository.findAll(pageable));
+    // }
+
     @GetMapping
-    public ResponseEntity<Page<HealthRecord>> getAll(
-            @PageableDefault(page = 0, size = 5, sort = "date", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.status(206).body(healthRecordRepository.findAll(pageable));
+    public ResponseEntity<List<HealthRecord>> getAll() {
+        return ResponseEntity.ok(healthRecordRepository.findAll());
     }
 
     @PutMapping("/{id}")

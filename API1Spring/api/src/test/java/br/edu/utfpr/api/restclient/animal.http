@@ -1,7 +1,6 @@
 @URL = http://localhost:8081/animal
 
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBUEkgYXV0aGVudGljYXRpb24iLCJpZCI6IjY0MTc1MjVlLThjMzAtNDcxYS05NGRlLTdhNDBlNjI5MTFmZiIsInVzZXJuYW1lIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNzMyMjA2NTY2LCJleHAiOjE3MzIyMTAxNjYsImlzcyI6IlVURlBSIn0.9XAaJNVwoFb7cKnTGG-_Ouxl3Dx0Fmita3xZeh4RFH4
-
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBUEkgYXV0aGVudGljYXRpb24iLCJpZCI6IjIyM2UyODk1LTg3ZTAtNDRlYS04ZTczLWVjYzAwODY0MWFhNyIsInVzZXJuYW1lIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNzM0Mzk5MTQ3LCJleHAiOjE3MzQ0MDI3NDcsImlzcyI6IlVURlBSIn0.0LlMoCsqdhli6jfafCdNN1Nkz2vmtOMls5yG0-06yQU
 ### Obter todas pessoas
 GET {{URL}}
 Authorization: {{token}}
@@ -15,7 +14,7 @@ POST {{URL}}
 Content-Type: application/json
 
 {
-  "tagId": "TAG12345",
+  "tagId": "TAGaloizio",
   "name": "Boizinho",
   "breed": "Nelore",
   "age": 3,

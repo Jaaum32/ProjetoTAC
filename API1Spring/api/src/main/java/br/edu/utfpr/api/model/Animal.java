@@ -3,6 +3,8 @@ package br.edu.utfpr.api.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,10 +50,10 @@ public class Animal {
     private String reproductiveStatus;
 
     @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
+    @JsonIgnore
     private List<Reproduction> reproductionHistory = new ArrayList<>();
 
     @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
+    @JsonIgnore
     private List<HealthRecord> healthHistory = new ArrayList<>();
 }

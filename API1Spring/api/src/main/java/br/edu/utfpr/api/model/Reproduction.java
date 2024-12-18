@@ -1,6 +1,10 @@
 package br.edu.utfpr.api.model;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +35,7 @@ public class Reproduction {
 
     @ManyToOne
     @JoinColumn(name = "animal_id", nullable = false)
-    @ToString.Exclude
+    @JsonIgnore
     private Animal animal;
 
     @Column(name = "insemination_date", nullable = false)
@@ -47,4 +51,9 @@ public class Reproduction {
 
     @Column(name = "pregnancy_confirmation", nullable = false)
     private boolean pregnancyConfirmed;
+
+    @JsonProperty("animalId")
+    public String getAnimalId() {
+        return animal != null ? animal.getTagId() : "N/A"; // Retorna o id do animal ou 0 se animal for nulo
+    }
 }

@@ -1,11 +1,13 @@
 package br.edu.utfpr.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+// import org.springframework.data.domain.Page;
+// import org.springframework.data.domain.Pageable;
+// import org.springframework.data.domain.Sort;
+// import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,10 +41,17 @@ public class AnimalController {
                 : ResponseEntity.notFound().build();
     }
 
+    // @GetMapping
+    // public ResponseEntity<Page<Animal>> getAll(
+    // /*@PageableDefault(page = 0, size = 5, sort = "name", direction =
+    // Sort.Direction.ASC) Pageable pageable)*/ {
+    // return
+    // ResponseEntity.status(206).body(animalRepository.findAll(/*pageable*/));
+    // }
+
     @GetMapping
-    public ResponseEntity<Page<Animal>> getAll(
-            @PageableDefault(page = 0, size = 5, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.status(206).body(animalRepository.findAll(pageable));
+    public ResponseEntity<List<Animal>> getAll() {
+        return ResponseEntity.ok(animalRepository.findAll());
     }
 
     @PutMapping("/{id}")

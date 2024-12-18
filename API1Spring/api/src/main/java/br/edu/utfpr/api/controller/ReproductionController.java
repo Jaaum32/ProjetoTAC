@@ -1,16 +1,19 @@
 package br.edu.utfpr.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+// import org.springframework.data.domain.Page;
+// import org.springframework.data.domain.Pageable;
+// import org.springframework.data.domain.Sort;
+// import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import br.edu.utfpr.api.dto.ReproductionDTO;
 import br.edu.utfpr.api.model.Animal;
+// import br.edu.utfpr.api.model.HealthRecord;
 import br.edu.utfpr.api.model.Reproduction;
 import br.edu.utfpr.api.repository.AnimalRepository;
 import br.edu.utfpr.api.repository.ReproductionRepository;
@@ -68,10 +71,15 @@ public class ReproductionController {
                 : ResponseEntity.notFound().build();
     }
 
+    // @GetMapping
+    // public ResponseEntity<Page<Reproduction>> getAll(
+    //         @PageableDefault(page = 0, size = 5, sort = "inseminationDate", direction = Sort.Direction.ASC) Pageable pageable) {
+    //     return ResponseEntity.status(206).body(reproductionRepository.findAll(pageable));
+    // }
+
     @GetMapping
-    public ResponseEntity<Page<Reproduction>> getAll(
-            @PageableDefault(page = 0, size = 5, sort = "inseminationDate", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.status(206).body(reproductionRepository.findAll(pageable));
+    public ResponseEntity<List<Reproduction>> getAll() {
+        return ResponseEntity.ok(reproductionRepository.findAll());
     }
 
     @PutMapping("/{id}")

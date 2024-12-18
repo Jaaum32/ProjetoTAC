@@ -18,6 +18,8 @@ main{
   color: #fff;
   height: 100vh;
   width: 250px;
+  display: flex;
+  flex-direction: column;
   transition: all 0.5s;
 }
 
@@ -25,6 +27,19 @@ main{
   display: flex;
   align-items: center;
   padding: 20px 15px;
+}
+
+.bottom-section {
+  margin-top: auto;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  padding: 20px 5px;
+}
+
+/* Quando o menu está aberto, centralizar o botão de "Sair" */
+.bottom-section.centered {
+  justify-content: center; /* Centraliza horizontalmente */
 }
 
 .logo{
@@ -61,5 +76,268 @@ main{
 }
 
 .icon,.link-text{
+  font-size: 20px;
+}
+/*---------------------------------------------------------------------------------------------------------------*/
+
+/* Estilização geral para a sobreposição (overlay) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Mantém o modal sempre acima dos outros elementos */
+}
+
+/* Container principal do modal */
+.modal-container {
+  background: #fff; /* Fundo branco */
+  border-radius: 12px; /* Bordas arredondadas */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra leve */
+  width: 90%;
+  max-width: 400px; /* Largura máxima do modal */
+  padding: 2rem;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out; /* Animação de entrada */
+}
+
+.modal-form {
+  text-align: left;
+}
+
+.btn-submit {
+  display: block; /* Garante que o botão seja tratado como um bloco */
+  margin: 1rem auto; /* Centraliza o botão horizontalmente e adiciona margem superior/inferior */
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: #0056b3; /* Cor mais escura no hover */
+}
+
+/* Título do modal */
+.modal-container h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Estilização dos inputs */
+.modal-container input {
+  width: 90%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.modal-container textarea {
+  margin: 0.5rem 0;
+  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: none; /* Impede o redimensionamento do textarea */
+  min-height: 100px; /* Altura mínima */
+  max-height: 300px; /* Altura máxima */
+  font-family: Arial, sans-serif;
+  padding: 0.8rem; /* Adiciona o espaçamento interno */
+}
+
+.checkbox-container {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.modal-container input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #007bff; /* Cor personalizada para o checkbox */
+  transition: accent-color 0.3s ease;
+}
+
+.modal-container input:focus {
+  border-color: #007bff; /* Borda azul quando o input estiver focado */
+  outline: none;
+}
+
+/* Botão principal */
+.modal-container button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.modal-container button:hover {
+  background: #0056b3; /* Cor mais escura no hover */
+}
+
+/* Mensagem de erro */
+.modal-container div[style*="color: red"] {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------*/
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  border-radius: 8px; /* Cantos arredondados */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.redbg {
+  background-color: #f44336; /* Cor de fundo para deletar (vermelho) */
+  color: white;
+}
+
+.redbg:hover {
+  background-color: #e53935; /* Cor de fundo mais escura quando passar o mouse */
+}
+
+.bluebg {
+  background-color: #007bff; /* Cor de fundo para salvar (azul) */
+  color: white;
+}
+
+.bluebg:hover {
+  background-color: #0056b3; /* Cor de fundo mais escura quando passar o mouse */
+}
+
+.greenbg {
+  background-color: #28a745;
+  color: white;
+}
+
+.greenbg:hover {
+  background-color: #218838;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Espaço entre os botões */
+  align-items: center; /* Alinha os botões verticalmente no centro */
+}
+
+.search-input {
+  width: 100%; /* Faz o campo ocupar toda a largura disponível */
+  max-width: 300px; /* Limita a largura máxima do campo de pesquisa */
+  padding: 8px 12px; /* Adiciona preenchimento interno */
+  border-radius: 8px; /* Cantos arredondados */
+  border: 1px solid #ccc; /* Borda cinza clara */
+  font-size: 16px; /* Tamanho da fonte */
+  color: #333; /* Cor do texto */
+  background-color: #f9f9f9; /* Cor de fundo clara */
+  transition: border-color 0.3s ease; /* Transição suave para a mudança da cor da borda */
+}
+
+.search-input:focus {
+  outline: none; /* Remove a borda padrão de foco */
+  border-color: #007bff; /* Borda azul ao focar */
+  background-color: #fff; /* Muda o fundo para branco ao focar */
+}
+
+.search-input::placeholder {
+  color: #aaa; /* Cor do texto do placeholder */
+  font-style: italic; /* Torna o texto do placeholder em itálico */
+}
+.door {
+  display: flex; /* Alinha os itens lado a lado */
+  align-items: center; /* Centraliza verticalmente */
+  gap: 10px; /* Espaçamento entre os elementos */
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar.door {
+  align-items: center;
+}
+
+/* Quando o menu estiver aberto */
+.door-open {
+  background-color: #ff4d4f; /* Fundo vermelho */
+  color: #ffffff; /* Texto branco */
+}
+
+.door-open .door-icon {
+  color: #ffffff; /* Ícone branco */
+}
+
+.door-open:hover {
+  background-color: #e43d40; /* Cor mais escura no hover */
+}
+
+/* Quando o menu estiver fechado */
+.door-closed {
+  background-color: #0c1222; /* Fundo escuro */
+  color: #a3a3a3; /* Texto cinza claro */
+}
+
+.door-closed .door-icon {
+  padding-left: 4px;
+  color: #a3a3a3; /* Ícone cinza claro */
+}
+
+.door-closed:hover {
+  background-color: #1c253b; /* Cor um pouco mais clara no hover */
+}
+
+/* Texto "Sair" */
+.door-text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Ícone */
+.door-icon {
   font-size: 20px;
 }

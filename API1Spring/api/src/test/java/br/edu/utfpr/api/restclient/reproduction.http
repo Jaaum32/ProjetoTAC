@@ -16,12 +16,12 @@ POST {{URL}}
 Content-Type: application/json
 
 {
-    "name": "Juca",
-    "email": "juca@gmail.com",
-    "password": "1234",
-    "birth": "2000-05-05"
+    "inseminationDate": "2024-12-17",
+    "expectedBirthDate": "2025-09-17",
+    "observations": "Primeira inseminação de Juca.",
+    "pregnancyConfirmed": true,
+    "animalId": "1"
 }
-
 ### Atualizar uma pessoa
 PUT {{URL}}/f100538c-390a-49d2-8b08-e127d1b390c1
 Content-Type: application/json
