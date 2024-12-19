@@ -4,6 +4,7 @@ import AnimalService from '../Services/AnimalService';
 import { FaRegTrashAlt, FaPlus } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import AnimalFormModal from '../Modals/AnimalFormModal';
+import CowLocationService from '../Services/CowLocationService';
 
 function Animal() {
     const [animals, setAnimals] = useState([]);
@@ -39,9 +40,11 @@ function Animal() {
         setFilteredAnimals(result);
     }, [search, animals]);
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id, tagId) => {
         try {
             await AnimalService.delete_(id); // Chama o método de delete
+            const res = await CowLocationService.getByTagId(tagId);
+            await CowLocationService.delete_(res.data.id);
             getAnimals(); // Atualiza a lista após a exclusão
         } catch (err) {
             console.log(err);
@@ -110,7 +113,7 @@ function Animal() {
             cell: row => (
                 <div className='button-container'>
                     <HiPencilAlt className='btn-icon bluebg' onClick={() => handleUpdate(row.id)} />
-                    <FaRegTrashAlt className='btn-icon redbg' onClick={() => handleDelete(row.id)} />
+                    <FaRegTrashAlt className='btn-icon redbg' onClick={() => handleDelete(row.id, row.tagId)} />
                 </div>
             )
         }

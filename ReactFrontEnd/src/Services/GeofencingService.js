@@ -1,6 +1,14 @@
 import axios from "axios";
 import { API2_URL } from "../Const";
 
+// Recupera o token do localStorage ou sessionStorage
+const token = localStorage.getItem('jwtToken'); // ou sessionStorage.getItem('authToken');
+
+// Configura o axios globalmente para incluir o token nas requisições
+if (token) {
+    axios.defaults.headers.common['Authorization'] = token;
+}
+
 const getById = (id) => {
     return axios.get(`${API2_URL}/geofence/${id}`)
 }

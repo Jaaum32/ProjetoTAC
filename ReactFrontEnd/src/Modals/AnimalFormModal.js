@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import AnimalService from '../Services/AnimalService';
+import CowLocationService from '../Services/CowLocationService';
+import GeofencingService from '../Services/GeofencingService';
 
 function AnimalFormModal({ show, onClose, animalData, onSaveSuccess }) {
   const [tagId, setTagId] = useState('');
@@ -8,11 +10,12 @@ function AnimalFormModal({ show, onClose, animalData, onSaveSuccess }) {
   const [age, setAge] = useState('');
   const [weight, setWeight] = useState('');
   const [reproductiveStatus, setReproductiveStatus] = useState('');
+  const [selectedGeofence, setSelectedGeofence] = useState('');
+  const [geofences, setGeofences] = useState([]);
   const [id, setId] = useState(null);
 
   // Preencher os dados no formulário se estiver editando
   useEffect(() => {
-    console.log("animalData:", animalData); 
     if (animalData) {
       setId(animalData.id);
       setTagId(animalData.tagId);
@@ -21,6 +24,7 @@ function AnimalFormModal({ show, onClose, animalData, onSaveSuccess }) {
       setAge(animalData.age);
       setWeight(animalData.weight);
       setReproductiveStatus(animalData.reproductiveStatus);
+      setSelectedGeofence(animalData.geofence || '');
     } else {
       // Limpar os campos ao abrir para criação de novo registro
       setId(null);
@@ -30,8 +34,26 @@ function AnimalFormModal({ show, onClose, animalData, onSaveSuccess }) {
       setAge('');
       setWeight('');
       setReproductiveStatus('');
+      setSelectedGeofence('');
     }
   }, [animalData]);
+
+  // Buscar geofences para preencher o dropdown
+  useEffect(() => {
+    async function fetchGeofences() {
+      try {
+        const response = await GeofencingService.getAll(); // Chamada para a API
+        const geofencesData = response.data.map((fence) => ({
+          id: fence._id, // Atribuindo o id corretamente
+          nome: fence.nome,
+        }));
+        setGeofences(geofencesData);
+      } catch (error) {
+        console.error('Erro ao buscar as geofences:', error);
+      }
+    }
+    fetchGeofences();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,21 +64,30 @@ function AnimalFormModal({ show, onClose, animalData, onSaveSuccess }) {
       breed,
       age,
       weight,
-      reproductiveStatus
+      reproductiveStatus,
+      geofence: selectedGeofence,
     };
 
     try {
       if (id) {
         // Atualizar animal existente
         await AnimalService.update(id, animal);
-        // alert('Animal atualizado com sucesso!');
       } else {
         // Cadastrar novo animal
         await AnimalService.save(animal);
-        // alert('Animal cadastrado com sucesso!');
+        const defaultLocation = {
+          idBoi: animal.tagId,
+          latitude: -25.358513,
+          longitude: -52.894847,
+        };
+        try {
+          await CowLocationService.save(defaultLocation);
+        } catch (error) {
+          console.error('Erro ao salvar a localização:', error);
+        }
       }
-      onSaveSuccess();  // Atualizar a lista no componente pai
-      onClose();  // Fechar o modal
+      onSaveSuccess(); // Atualizar a lista no componente pai
+      onClose(); // Fechar o modal
     } catch (error) {
       console.error(error);
       alert('Erro ao salvar os dados do animal');
@@ -136,6 +167,22 @@ function AnimalFormModal({ show, onClose, animalData, onSaveSuccess }) {
               required
               placeholder="Ex: Ativo, Inativo"
             />
+          </div>
+
+          <div>
+            <label>Cerca Geográfica:</label>
+            <select
+              value={selectedGeofence}
+              onChange={(e) => setSelectedGeofence(e.target.value)}
+              required
+            >
+              <option value="">Selecione uma cerca</option>
+              {geofences.map((geofence) => (
+                <option key={geofence.id} value={geofence.nome}>
+                  {geofence.nome}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="modal-buttons">

@@ -341,3 +341,81 @@ main{
 .door-icon {
   font-size: 20px;
 }
+
+/*--------------------------------------------------------------------------------------------------------------*/
+
+.container-map {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 60%; /* O primeiro item ocupa 70% da largura */
+  height: 100vh; /* Definindo a altura do mapa */
+}
+
+.geofence-buttons {
+  background-color: #fff;
+  padding: 10px;
+}
+
+.geofence-buttons button{
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.container-limit-add {
+  display: flex;
+  gap: 20px; /* Espaçamento entre as colunas */
+  align-items: flex-start; /* Alinha os itens ao topo */
+}
+
+/* Estilos da coluna dos botões */
+.container-limit-buttons {
+  display: flex;
+  flex-direction: column; /* Organiza os botões em coluna */
+}
+
+/* Estilos da coluna dos campos */
+.container-limit-fields {
+  display: flex;
+  flex-direction: column; /* Organiza os campos de nome/descrição em coluna */
+  width: 200px; /* Largura fixa para os campos */
+}
+
+.container-limit-fields input {
+  width: 300px;
+  padding: 0.8rem;
+  height: 10px;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.container-limit-fields textarea {
+  margin: 0.5rem 0;
+  width: 300px;
+  height: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: none; /* Impede o redimensionamento do textarea */
+  font-family: Arial, sans-serif;
+  padding: 0.8rem; /* Adiciona o espaçamento interno */
+}
+
+.map-page {
+  display: flex; /* Alinha os itens na horizontal */
+  width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+}
+
+.map-tables {
+  flex: 0 0 40%; /* O segundo item ocupa 30% da largura */
+  padding: 10px; /* Adiciona um espaçamento interno para não colar na borda */
+  overflow-y: auto; /* Permite rolagem caso o conteúdo seja maior que a altura definida */
+}

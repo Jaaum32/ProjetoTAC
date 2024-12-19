@@ -11,10 +11,10 @@ require("dotenv").config();
 const { MONGODB_URL } = process.env;
 
 mongoose.connect(MONGODB_URL, {})
-    .then(() => { 
-        console.log("Conectado ao MongoDB."); 
+    .then(() => {
+        console.log("Conectado ao MongoDB.");
     })
-    .catch((err) => { 
+    .catch((err) => {
         console.log("Falha ao conectar com o MongoDB: ", err);
     });
 
@@ -33,10 +33,10 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
     allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
     exposedHeaders: ['Authorization'], // Cabeçalhos que podem ser expostos
-  };
-  
-  // Ativando o middleware CORS
-  app.use(cors(corsOptions));
+};
+
+// Ativando o middleware CORS
+app.use(cors(corsOptions));
 
 //app.use(logger('dev'));
 app.use(express.json());

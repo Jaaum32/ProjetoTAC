@@ -1,9 +1,17 @@
 import axios from "axios";
 import { API2_URL } from "../Const";
 
-const getById = (id) => {
-    return axios.get(`${API2_URL}/cowlocation/${id}`)
+// Recupera o token do localStorage ou sessionStorage
+const token = localStorage.getItem('jwtToken'); // ou sessionStorage.getItem('authToken');
+
+// Configura o axios globalmente para incluir o token nas requisições
+if (token) {
+    axios.defaults.headers.common['Authorization'] = token;
 }
+
+const getByTagId = (tagId) => {
+    return axios.get(`${API2_URL}/cowlocation/boi/${tagId}`);
+};
 
 // Função para obter todos os animais
 const getAll = () => {
@@ -25,4 +33,4 @@ const update = (id, cowLocation) => {
     return axios.put(`${API2_URL}/cowlocation/${id}`, cowLocation);
 };
 
-export default { getAll, save, delete_, update, getById };
+export default { getAll, save, delete_, update, getByTagId };
