@@ -13,6 +13,7 @@ router.get('/', isAuthenticated, async (req, res) => {
   }
 });
 
+
 // Obter um Geofence pelo ID
 router.get('/:id', isAuthenticated, async (req, res) => {
   try {
@@ -29,11 +30,13 @@ router.get('/:id', isAuthenticated, async (req, res) => {
 // Criar um Geofence
 router.post('/', isAuthenticated, async (req, res) => {
   try {
-    const { nome, descricao, coordenadas } = req.body;
+    const { nome, descricao, coordenadas, corTerreno } = req.body;
     if (!coordenadas || coordenadas.length < 3) {
       return res.status(400).json({ message: 'O Geofence precisa de pelo menos 3 coordenadas.' });
     }
-    const geofence = new Geofence({ nome, descricao, coordenadas });
+    const geofence = new Geofence({ nome, descricao, coordenadas, ...(corTerreno && { corTerreno }) });
+    geofence.pontoCentral = geofence.calcularCentro();
+
     await geofence.save(); // INSERT INTO geofences
     res.status(201).json(geofence);
   } catch (error) {

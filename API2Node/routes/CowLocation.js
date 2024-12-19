@@ -63,14 +63,16 @@ router.get('/:id', isAuthenticated, async (req, res) => {
 // Criar uma localização para o boi
 router.post('/', isAuthenticated, async (req, res) => {
   try {
-    const { idBoi, latitude, longitude, data } = req.body;
-    const location = new CowLocation({ idBoi, latitude, longitude, data });
+    const { idBoi, latitude, longitude, data, geofenceId } = req.body;
+
+    const location = new CowLocation({ idBoi, latitude, longitude, data, geofenceId });
     await location.save(); // INSERT INTO cow_locations
     res.status(201).json(location);
   } catch (error) {
     res.status(500).json({ message: 'Erro ao criar localização', error: error.message });
   }
 });
+
 
 // Atualizar a localização de um boi pelo ID
 router.put('/:id', isAuthenticated, async (req, res) => {
@@ -115,3 +117,4 @@ router.get('/boi/:idBoi', isAuthenticated, async (req, res) => {
 
 
 module.exports = router;
+
