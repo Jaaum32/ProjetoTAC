@@ -22,6 +22,8 @@ function Geofencing() {
                 id: fence._id, // Atribuindo o id corretamente
                 nome: fence.nome,
                 descricao: fence.descricao,
+                corTerreno: fence.corTerreno,
+                pontoCentral: fence.pontoCentral
             }));
 
             setGeofences(formattedGeofences);
@@ -62,9 +64,9 @@ function Geofencing() {
 
     // Estilo dos polígonos
     const polygonOptions = {
-        color: 'blue',
-        fillColor: 'lightblue',
-        fillOpacity: 0.5,
+        color: 'rgb(255,0,0)',//geofences.terrenoColor,//pegar o RGB
+        fillColor: 'rgb(255,0,0)',
+        fillOpacity: 0.2,
     };
 
     // Função para salvar o novo polígono no banco de dados
@@ -92,8 +94,8 @@ function Geofencing() {
             const response = await GeofencingService.save(geofenceData);
 
             // Atualizar a lista de geofences após salvar
-            console.log(response);
-            console.log(formattedCoordinates);
+            //console.log(response);
+            //console.log(formattedCoordinates);
 
             // Atualizar as geofences
             await getGeofences();
