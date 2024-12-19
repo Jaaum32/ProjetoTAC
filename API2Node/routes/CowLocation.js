@@ -1,7 +1,31 @@
+const turf = require('@turf/turf');
 const express = require('express');
 const router = express.Router();
 const CowLocation = require('../models/CowLocation');
 const isAuthenticated = require('../middlewares/isAuthenticated');
+const Geofence = require('../models/Geofence');
+const mongoose = require('mongoose');
+
+
+// Função para verificar se uma vaca está dentro de uma geofence
+const isInsideGeofence = (latitude, longitude, geofence) => {
+  const point = turf.point([longitude, latitude]); // Cria o ponto da vaca
+  //console.log("Ponto: ");
+  //console.log(point);
+  
+  const polygon = turf.polygon([geofence.coordenadas.map(coord => [coord.longitude, coord.latitude])]); // Cria o polígono
+  
+  /*console.log("Polígono: ");
+  console.log(polygon);
+  console.log("Coordenadas do polígono: ");
+  console.log(polygon.geometry.coordinates);
+  */
+
+  const isInside = turf.booleanPointInPolygon(point, polygon); // Retorna true/false
+  //console.log("Está dentro da geofence? ", isInside);
+  
+  return isInside;
+};
 
 // Função para movimentar a vaca em direções aleatórias
 const moveCow = (latitude, longitude) => {
@@ -10,6 +34,7 @@ const moveCow = (latitude, longitude) => {
   // Calcula deslocamento independente para latitude e longitude
   const randomLatFactor = Math.random() * displacement; // Aleatoriedade no deslocamento da latitude
   const randomLngFactor = Math.random() * displacement; // Aleatoriedade no deslocamento da longitude
+
 
   const latDirection = Math.random() < 0.5 ? -1 : 1; // Decide se vai para norte ou sul
   const lngDirection = Math.random() < 0.5 ? -1 : 1; // Decide se vai para leste ou oeste
@@ -35,6 +60,35 @@ router.get('/', isAuthenticated, async (req, res) => {
         // Atualizar no banco
         location.latitude = newLatitude;
         location.longitude = newLongitude;
+
+
+        // Procurar a geofence associada à localização da vaca
+        let geofence = null;
+        if (location.geofenceId && mongoose.Types.ObjectId.isValid(location.geofenceId)) {
+          // Se geofenceId for válido, procura a geofence no banco
+          geofence = await Geofence.findById(location.geofenceId); // Procura a geofence pela referência
+        }
+
+        //console.log(geofence);
+
+        // Verifica se a vaca está dentro da geofence, caso exista
+        if (geofence) {
+
+          //adiciona um ultimo ponto igual ao primeiro para fechar um poligono
+          geofence.coordenadas.push({
+            latitude: geofence.coordenadas[0].latitude,
+            longitude: geofence.coordenadas[0].longitude,
+            //_id: new ObjectId('last')  // Gerar novo ID para o último ponto
+          });
+          
+          const isInside = isInsideGeofence(newLatitude, newLongitude, geofence); // Verifique se dentro da geofence
+          //console.log(isInside);
+          location.isOutsideGeofence = !isInside; // Atualiza o campo indicando se está dentro ou fora da geofence
+        } else {
+          location.isOutsideGeofence = true; // Se não houver geofence, assume que não está dentro
+        }
+
+
         await location.save();
 
         return location; // Retorna a localização atualizada
