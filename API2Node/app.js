@@ -56,4 +56,8 @@ app.use('/users', usersRouter);
 app.use('/cowlocation', cowLocationRouter);
 app.use('/geofence', geofenceRouter);
 
+app.listen(3000, '0.0.0.0', () => {
+    console.log("Servidor rodando na porta 3000 e ouvindo todas as interfaces");
+});
+
 module.exports = app;
